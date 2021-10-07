@@ -12,9 +12,18 @@ namespace week04
 {
     public partial class Form1 : Form
     {
+        List<Flat> _flats;
+        RealEstateEntities context = new RealEstateEntities();
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();            
+            LoadData();
+        }
+        private void LoadData()
+        {
+            var ls = from x in context.Flats
+                     select x;
+            _flats = ls.ToList();
         }
     }
 }
