@@ -17,6 +17,19 @@ namespace week04
         List<Flat> _flats;
         RealEstateEntities context = new RealEstateEntities();
 
+
+        object[,] values;
+        string[] headers = new string[] {
+                 "Kód",
+                 "Eladó",
+                 "Oldal",
+                 "Kerület",
+                 "Lift",
+                 "Szobák száma",
+                 "Alapterület (m2)",
+                 "Ár (mFt)",
+                 "Négyzetméter ár (Ft/m2)"};
+
         //Excel változók
         Excel.Application xlApp;
         Excel.Workbook xlWb;
@@ -27,6 +40,7 @@ namespace week04
             InitializeComponent();
             LoadData();
             CreateExcel();
+            
         }
         private void LoadData()
         {
@@ -44,7 +58,7 @@ namespace week04
                 xlSheet = xlWb.ActiveSheet;
 
                 createTable();
-
+                FormatTable();
                 xlApp.Visible = true;
                 xlApp.UserControl = true;
             }
@@ -78,21 +92,11 @@ namespace week04
 
         private void createTable()
         {
-            string[] headers = new string[] {
-                 "Kód",
-                 "Eladó",
-                 "Oldal",
-                 "Kerület",
-                 "Lift",
-                 "Szobák száma",
-                 "Alapterület (m2)",
-                 "Ár (mFt)",
-                 "Négyzetméter ár (Ft/m2)"};
             for (int i = 0; i < headers.Length; i++)
             {
                 xlSheet.Cells[1, i + 1] = headers[i];
             }
-            object[,] values = new object[_flats.Count(), headers.Length];
+            values = new object[_flats.Count(), headers.Length];
             int counter = 0;
             foreach (var f in _flats)
             {
@@ -105,13 +109,34 @@ namespace week04
                 values[counter, 5] = f.NumberOfRooms;
                 values[counter, 6] = f.FloorArea;
                 values[counter, 7] = f.Price;
-                values[counter, 8] = keplet+GetCell(counter+2,7)+"/"+ GetCell(counter + 2, 8);
+                values[counter, 8] = keplet+ GetCell(counter + 2, 8) + "*1000000" + "/" + GetCell(counter+2,7) ;
                 counter++;
             }
             xlSheet.get_Range(
                 GetCell(2, 1), 
-                GetCell(1 + values.GetLength(0), 1 + values.GetLength(1)))
+                GetCell(1 + values.GetLength(0), values.GetLength(1)))
                 .Value2 = values;
+        }
+        private void FormatTable()
+        {
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            headerRange.Font.Bold = true;
+            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            headerRange.EntireColumn.AutoFit();
+            headerRange.RowHeight = 40;
+            headerRange.Interior.Color = Color.LightBlue;
+            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            Excel.Range wholeTable = xlSheet.get_Range(GetCell(1,1), GetCell(values.GetLength(0) +1,values.GetLength(1)));
+            wholeTable.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+            Excel.Range firstColumn = xlSheet.get_Range(GetCell(2, 1), GetCell(values.GetLength(0)+1, 1));
+            firstColumn.Font.Bold = true;
+            firstColumn.Interior.Color = Color.LightYellow;
+            Excel.Range lastColumn = xlSheet.get_Range(GetCell(2, headers.Length), GetCell(values.GetLength(0) + 1, headers.Length));
+            lastColumn.Interior.Color = Color.LightGreen;
+            lastColumn.NumberFormat = @"#\ ##0.00";
+
         }
     }
 }
