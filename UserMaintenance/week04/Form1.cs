@@ -16,16 +16,46 @@ namespace week04
     {
         List<Flat> _flats;
         RealEstateEntities context = new RealEstateEntities();
+
+        //Excel változók
+        Excel.Application xlApp;
+        Excel.Workbook xlWb;
+        Excel.Worksheet xlSheet;
+
         public Form1()
         {
             InitializeComponent();            
             LoadData();
+            //createTable();
         }
         private void LoadData()
         {
             var ls = from x in context.Flats
                      select x;
             _flats = ls.ToList();
+        }
+        private void CreateExcel()
+        {
+            try
+            {
+                xlApp = new Excel.Application();
+                xlWb = xlApp.Workbooks.Add(Missing.Value);
+                xlSheet = xlWb.ActiveSheet;
+
+                //createTable();
+
+                xlApp.Visible = true;
+                xlApp.UserControl = true;
+            }
+            catch (Exception ex)
+            {
+                string errMsg = String.Format("Error: {0}\nLine: {1}", ex.Message, ex.Source);
+                MessageBox.Show(errMsg);
+                xlWb.Close(false, Type.Missing, Type.Missing);
+                xlApp.Quit();
+                xlWb = null;
+                xlSheet = null;
+            }
         }
     }
 }
