@@ -26,13 +26,14 @@ namespace week04
         {
             InitializeComponent();
             LoadData();
-            //createTable();
+            CreateExcel();
         }
         private void LoadData()
         {
             var ls = from x in context.Flats
                      select x;
             _flats = ls.ToList();
+
         }
         private void CreateExcel()
         {
@@ -42,7 +43,7 @@ namespace week04
                 xlWb = xlApp.Workbooks.Add(Missing.Value);
                 xlSheet = xlWb.ActiveSheet;
 
-                //createTable();
+                createTable();
 
                 xlApp.Visible = true;
                 xlApp.UserControl = true;
@@ -95,6 +96,7 @@ namespace week04
             int counter = 0;
             foreach (var f in _flats)
             {
+                string keplet = "=";
                 values[counter, 0] = f.Code;
                 values[counter, 1] = f.Vendor;
                 values[counter, 2] = f.Side;
@@ -103,7 +105,8 @@ namespace week04
                 values[counter, 5] = f.NumberOfRooms;
                 values[counter, 6] = f.FloorArea;
                 values[counter, 7] = f.Price;
-                values[counter, 8] = "";
+                values[counter, 8] = keplet+GetCell(counter+2,7)+"/"+ GetCell(counter + 2, 8);
+                counter++;
             }
             xlSheet.get_Range(
                 GetCell(2, 1), 
