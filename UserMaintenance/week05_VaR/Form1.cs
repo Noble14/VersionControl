@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using week05_VaR.Entities;
+using System.IO;
 
 namespace week05_VaR
 {
@@ -18,6 +19,7 @@ namespace week05_VaR
         List<Tick> ListOfTicks;
         PortfolioEntities context = new PortfolioEntities();
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
+        List<decimal> Nyereségek = new List<decimal>();
 
         #endregion
 
@@ -28,7 +30,7 @@ namespace week05_VaR
             dataGridView1.DataSource = ListOfTicks;
             createPortfolio();
 
-            List<decimal> Nyereségek = new List<decimal>();
+
             int intervalum = 30;
             DateTime kezdőDátum = (from x in ListOfTicks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
@@ -75,5 +77,23 @@ namespace week05_VaR
         }
 
         #endregion
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveLocation = new SaveFileDialog();
+            if (saveLocation.ShowDialog() == DialogResult.OK)
+            {
+                //var s = saveLocation.OpenFile();
+                StreamWriter s = new StreamWriter(saveLocation.OpenFile());
+                s.WriteLine("Időszak\tNyereség");
+                int i = 1;
+                foreach (var item in Nyereségek)
+                {
+                    s.WriteLine($"{i}.\t{item.ToString()}");
+                    i++;
+                }
+                s.Close();
+            }
+        }
     }
 }
