@@ -9,15 +9,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using week06_SOAP.MnbServiceReference;
 using System.IO;
+using week06_SOAP.Entitties;
+
 
 namespace week06_SOAP
 {
     public partial class Form1 : Form
     {
+        #region Fields
+        BindingList<RateData> Rates = new BindingList<RateData>();
+        #endregion
+
         public Form1()
         {
             InitializeComponent();
             method();
+            dataGridView1.DataSource = Rates;
         }
 
         private void method()
