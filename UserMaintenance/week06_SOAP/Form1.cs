@@ -28,6 +28,8 @@ namespace week06_SOAP
             GetCurrencies();
             ProcessXmlCurrencies(GetCurrencies());
             cbValuta.DataSource = Currencies;
+            dataGridView1.DataSource = Rates;
+            chartRateData.DataSource = Rates;
             RefreshData();
         }
 
@@ -36,8 +38,6 @@ namespace week06_SOAP
             Rates.Clear();
             ProcessXML(GetXML());
             ShowData();
-            dataGridView1.DataSource = Rates;
-            chartRateData.DataSource = Rates;
         }
 
         private string GetXML()
