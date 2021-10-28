@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using week06_SOAP.MnbServiceReference;
 using System.IO;
@@ -22,6 +16,7 @@ namespace week06_SOAP
         BindingList<string> Currencies = new BindingList<string>();
         #endregion
 
+        #region Constructor
         public Form1()
         {
             InitializeComponent();
@@ -32,7 +27,9 @@ namespace week06_SOAP
             chartRateData.DataSource = Rates;
             RefreshData();
         }
+        #endregion
 
+        #region Private methods
         private void RefreshData()
         {
             Rates.Clear();
@@ -116,6 +113,7 @@ namespace week06_SOAP
                 }
             }
         }
+        #endregion
 
         #region Menu event handlers
         private void dateTimePickerStart_ValueChanged(object sender, EventArgs e)
