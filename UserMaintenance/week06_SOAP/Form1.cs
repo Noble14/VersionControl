@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using week06_SOAP.MnbServiceReference;
 using System.IO;
 using week06_SOAP.Entitties;
-
+using System.Xml;
 
 namespace week06_SOAP
 {
@@ -23,11 +23,11 @@ namespace week06_SOAP
         public Form1()
         {
             InitializeComponent();
-            method();
+            GetXML();
             dataGridView1.DataSource = Rates;
         }
 
-        private void method()
+        private string GetXML()
         {
             MNBArfolyamServiceSoapClient mnbService = new MNBArfolyamServiceSoapClient();
             GetExchangeRatesRequestBody request = new GetExchangeRatesRequestBody();
@@ -37,6 +37,24 @@ namespace week06_SOAP
             var response = mnbService.GetExchangeRates(request);
             string result = response.GetExchangeRatesResult;
             //SaveResult(result);
+            return result;
+        }
+        private void ProcessXML(string file)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(file);
+            foreach (XmlElement item in xml.DocumentElement)
+            {
+                RateData rd = new RateData();
+                rd.date = DateTime.Parse(item.GetAttribute("date"));
+                var s = item.ChildNodes;
+                rd.Currency = ((XmlElement)s[0]).GetAttribute("curr");
+                decimal a = decimal.Parse(s[0].InnerText);
+                decimal unit = decimal.Parse(((XmlElement)s[0]).GetAttribute("unit"));
+                if (unit != 0)
+                    rd.Value = a / unit;
+                Rates.Add(rd);
+            }
         }
 
         private void SaveResult(string res)
