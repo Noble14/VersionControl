@@ -19,28 +19,56 @@ namespace week06_SOAP
     {
         #region Fields
         BindingList<RateData> Rates = new BindingList<RateData>();
+        BindingList<string> Currencies = new BindingList<string>();
         #endregion
 
         public Form1()
         {
             InitializeComponent();
-            dataGridView1.DataSource = Rates;
-            chartRateData.DataSource = Rates;
+            GetCurrencies();
+            ProcessXmlCurrencies(GetCurrencies());
+            cbValuta.DataSource = Currencies;
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
+            Rates.Clear();
             ProcessXML(GetXML());
             ShowData();
+            dataGridView1.DataSource = Rates;
+            chartRateData.DataSource = Rates;
         }
 
         private string GetXML()
         {
             MNBArfolyamServiceSoapClient mnbService = new MNBArfolyamServiceSoapClient();
             GetExchangeRatesRequestBody request = new GetExchangeRatesRequestBody();
-            request.currencyNames = "EUR";
-            request.startDate = "2020-01-01";
-            request.endDate = "2020-06-30";
+            request.currencyNames = cbValuta.Text;
+            request.startDate = dateTimePickerStart.Value.ToString("yyyy-MM-dd");
+            request.endDate = dateTimePickerEnd.Value.ToString("yyyy-MM-dd");
             var response = mnbService.GetExchangeRates(request);
             string result = response.GetExchangeRatesResult;
             //SaveResult(result);
             return result;
+        }
+        private string GetCurrencies()
+        {
+            MNBArfolyamServiceSoapClient mnbService = new MNBArfolyamServiceSoapClient();
+            GetCurrenciesRequestBody request = new GetCurrenciesRequestBody();
+            var response = mnbService.GetCurrencies(request);
+            string result = response.GetCurrenciesResult;
+            //SaveResult(result);
+            return result;
+        }
+        private void ProcessXmlCurrencies(string file)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(file);
+            foreach (XmlElement item in ((XmlElement)xml.DocumentElement.ChildNodes[0]))
+            {
+                Currencies.Add(item.InnerText);
+            }
         }
         private void ProcessXML(string file)
         {
@@ -49,14 +77,18 @@ namespace week06_SOAP
             foreach (XmlElement item in xml.DocumentElement)
             {
                 RateData rd = new RateData();
+                Rates.Add(rd);
                 rd.date = DateTime.Parse(item.GetAttribute("date"));
                 var s = item.ChildNodes;
+                if (s[0] == null)
+                {
+                    continue;
+                }
                 rd.Currency = ((XmlElement)s[0]).GetAttribute("curr");
                 decimal a = decimal.Parse(s[0].InnerText);
                 decimal unit = decimal.Parse(((XmlElement)s[0]).GetAttribute("unit"));
                 if (unit != 0)
-                    rd.Value = a / unit;
-                Rates.Add(rd);
+                    rd.Value = a / unit;                
             }
         }
         private void ShowData()
@@ -84,5 +116,22 @@ namespace week06_SOAP
                 }
             }
         }
+
+        #region Menu event handlers
+        private void dateTimePickerStart_ValueChanged(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
+
+        private void dateTimePickerEnd_ValueChanged(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
+
+        private void cbValuta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
+        #endregion
     }
 }
