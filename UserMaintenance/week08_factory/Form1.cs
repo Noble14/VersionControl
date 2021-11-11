@@ -15,13 +15,18 @@ namespace week08_factory
         #region Fields
         private List<Toy> _toys = new List<Toy>();
         private IToyFactory _factory;
+        private Toy _nextToy;
         #endregion
 
         #region Properties
         public IToyFactory Factory
         {
             get { return _factory; }
-            set { _factory = value; }
+            set
+            {
+                _factory = value;
+                DisplayNext();
+            }
         }
         #endregion
 
@@ -29,7 +34,7 @@ namespace week08_factory
         public Form1()
         {
             InitializeComponent();
-            _factory = new CarFactory();
+            Factory = new CarFactory();
         }
         #endregion
 
@@ -43,7 +48,7 @@ namespace week08_factory
                 if (b.Left > pos)
                 {
                     pos = b.Left;
-                }                
+                }
             }
             if (pos >= 1000)
             {
@@ -60,5 +65,33 @@ namespace week08_factory
             mainPanel.Controls.Add(b);
         }
         #endregion
+
+        #region Menu event handlers
+
+        private void _buttonCar_Click(object sender, EventArgs e)
+        {
+            Factory = new CarFactory();
+        }
+
+        private void _buttonBall_Click(object sender, EventArgs e)
+        {
+            Factory = new BallFactory();
+        }
+        #endregion
+
+        #region Private methods
+        private void DisplayNext()
+        {
+            if (_nextToy != null)
+            {
+                _panelMenu.Controls.Remove(_nextToy);
+            }
+            _nextToy = _factory.CreateNew();
+            _nextToy.Top = _labelComingNext.Height + _labelComingNext.Top;
+            _nextToy.Left = _labelComingNext.Left;
+            _panelMenu.Controls.Add(_nextToy);
+        }
+        #endregion
+
     }
 }
