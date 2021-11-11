@@ -9,12 +9,18 @@ namespace week08_factory.Entities
     {
         public SolidBrush BallColor { get; private set; }
         Random vel = new Random();
+        private int lowerBound;
+        private int upperBound;
+        bool upOrdDown;
 
         #region Constructor
         public Ball(Color color)
         {
             BallColor = new SolidBrush(color);
             this.Click += Ball_Click;
+            lowerBound = Top;
+            upperBound = Top + 30;
+            upOrdDown = false;
         }
         #endregion
 
@@ -36,6 +42,20 @@ namespace week08_factory.Entities
         protected override string ShowToyType()
         {
             return "Labda";
+        }
+
+        public override void MoveToy()
+        {
+            Left++;
+            if (lowerBound == Top || upperBound == Top) upOrdDown = !upOrdDown;
+            if (upOrdDown)
+            {
+                Top++;
+            }
+            else
+            {
+                Top--;
+            }
         }
         #endregion
     }
