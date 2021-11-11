@@ -77,6 +77,15 @@ namespace week08_factory
         {
             Factory = new BallFactory();
         }
+
+        private void _buttonColorPick_Click(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            ColorDialog cd = new ColorDialog();
+            cd.Color = button.BackColor;
+            if (cd.ShowDialog() == DialogResult.OK)
+                button.BackColor = cd.Color;
+        }
         #endregion
 
         #region Private methods
@@ -92,6 +101,5 @@ namespace week08_factory
             _panelMenu.Controls.Add(_nextToy);
         }
         #endregion
-
     }
 }

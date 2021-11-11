@@ -37,6 +37,7 @@ namespace week08_factory
             this._buttonCar = new System.Windows.Forms.Button();
             this._buttonBall = new System.Windows.Forms.Button();
             this._labelComingNext = new System.Windows.Forms.Label();
+            this._buttonColorPick = new System.Windows.Forms.Button();
             this._panelMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +64,7 @@ namespace week08_factory
             // _panelMenu
             // 
             this._panelMenu.Controls.Add(this._labelComingNext);
+            this._panelMenu.Controls.Add(this._buttonColorPick);
             this._panelMenu.Controls.Add(this._buttonBall);
             this._panelMenu.Controls.Add(this._buttonCar);
             this._panelMenu.Dock = System.Windows.Forms.DockStyle.Top;
@@ -95,11 +97,21 @@ namespace week08_factory
             // 
             this._labelComingNext.AutoSize = true;
             this._labelComingNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._labelComingNext.Location = new System.Drawing.Point(189, 4);
+            this._labelComingNext.Location = new System.Drawing.Point(166, 4);
             this._labelComingNext.Name = "_labelComingNext";
             this._labelComingNext.Size = new System.Drawing.Size(110, 20);
             this._labelComingNext.TabIndex = 1;
             this._labelComingNext.Text = "Coming Next";
+            // 
+            // _buttonColorPick
+            // 
+            this._buttonColorPick.BackColor = System.Drawing.Color.Red;
+            this._buttonColorPick.Location = new System.Drawing.Point(282, 3);
+            this._buttonColorPick.Name = "_buttonColorPick";
+            this._buttonColorPick.Size = new System.Drawing.Size(75, 93);
+            this._buttonColorPick.TabIndex = 0;
+            this._buttonColorPick.UseVisualStyleBackColor = false;
+            this._buttonColorPick.Click += new System.EventHandler(this._buttonColorPick_Click);
             // 
             // Form1
             // 
@@ -125,6 +137,7 @@ namespace week08_factory
         private System.Windows.Forms.Label _labelComingNext;
         private System.Windows.Forms.Button _buttonBall;
         private System.Windows.Forms.Button _buttonCar;
+        private System.Windows.Forms.Button _buttonColorPick;
     }
 }
 
