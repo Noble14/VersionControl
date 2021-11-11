@@ -23,13 +23,20 @@ namespace week08_factory.Entities
         }
         #endregion
 
+        #region Protected methods
         protected override void DrawImage(Graphics input)
         {
-            input.FillRectangle(BoxColor, new RectangleF(0,0,Width,Height));
+            input.FillRectangle(BoxColor, new RectangleF(0, 0, Width, Height));
             int n = Width / 10;
-            input.FillRectangle(RibbonColor, new Rectangle((Width - n)/2, 0 , n, Height));
+            input.FillRectangle(RibbonColor, new Rectangle((Width - n) / 2, 0, n, Height));
             int m = Height / 10;
             input.FillRectangle(RibbonColor, new Rectangle(0, (Height - m) / 2, Width, m));
         }
+
+        protected override string ShowToyType()
+        {
+            return "Ajándék";
+        }
+        #endregion
     }
 }

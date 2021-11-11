@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace week08_factory.Abstractions
@@ -12,18 +13,30 @@ namespace week08_factory.Abstractions
             this.Width = 50;
             this.Height = 50;
             this.Paint += Toy_Paint;
+            this.Click += Toy_Click;
         }
         #endregion
 
-        #region Event handler
+        #region Event handlers
         private void Toy_Paint(object sender, PaintEventArgs e)
         {
             DrawImage(e.Graphics);
+        }
+
+        private void Toy_Click(object sender, System.EventArgs e)
+        {
+            //ShowToyType();
+            ToyClicked?.Invoke(this, new ToyTypeEventArgs() { ToyName = ShowToyType() });
         }
         #endregion
 
         #region Anstract methods
         protected abstract void DrawImage(Graphics input);
+        protected abstract string ShowToyType();
+        #endregion
+
+        #region Events
+        public event EventHandler<ToyTypeEventArgs> ToyClicked;
         #endregion
 
         #region Public methods

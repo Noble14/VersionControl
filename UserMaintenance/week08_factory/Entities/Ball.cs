@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 using week08_factory.Abstractions;
 
 namespace week08_factory.Entities
@@ -30,6 +31,11 @@ namespace week08_factory.Entities
         protected override void DrawImage(Graphics input)
         {
             input.FillEllipse(BallColor, 0, 0, Width, Height);
+        }
+
+        protected override string ShowToyType()
+        {
+            return "Labda";
         }
         #endregion
     }

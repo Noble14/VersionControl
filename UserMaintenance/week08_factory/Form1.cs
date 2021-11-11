@@ -62,7 +62,15 @@ namespace week08_factory
             Toy b = Factory.CreateNew();
             b.Left = -b.Width;
             _toys.Add(b);
+            b.ToyClicked += B_ToyClicked;
             mainPanel.Controls.Add(b);
+        }
+        #endregion
+
+        #region Model eventhandlers
+        private void B_ToyClicked(object sender, ToyTypeEventArgs e)
+        {
+            MessageBox.Show(e.ToyName);
         }
         #endregion
 
@@ -114,7 +122,5 @@ namespace week08_factory
             _panelMenu.Controls.Add(_nextToy);
         }
         #endregion
-
-
     }
 }
