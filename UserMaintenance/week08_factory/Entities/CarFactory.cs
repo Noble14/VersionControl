@@ -2,13 +2,11 @@
 
 namespace week08_factory.Entities
 {
-    public class BallFactory : IToyFactory
+    class CarFactory : IToyFactory
     {
-        #region Public methods
         public Toy CreateNew()
         {
-            return new Ball();
+            return new Car();
         }
-        #endregion
     }
 }
