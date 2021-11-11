@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace week08_factory.Abstractions
@@ -28,7 +23,7 @@ namespace week08_factory.Abstractions
         #endregion
 
         #region Anstract methods
-        public abstract void DrawImage(Graphics input);
+        protected abstract void DrawImage(Graphics input);
         #endregion
 
         #region Public methods
