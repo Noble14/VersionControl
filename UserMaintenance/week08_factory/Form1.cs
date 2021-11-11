@@ -75,7 +75,11 @@ namespace week08_factory
 
         private void _buttonBall_Click(object sender, EventArgs e)
         {
-            Factory = new BallFactory();
+            Factory = new BallFactory()
+            {
+                BallColor = _buttonColorPick.BackColor
+            };
+
         }
 
         private void _buttonColorPick_Click(object sender, EventArgs e)

@@ -5,11 +5,19 @@ namespace week08_factory.Entities
 {
     public class Ball : Toy
     {
+        public SolidBrush BallColor { get; private set; }
+
+        #region Constructor
+        public Ball(Color color)
+        {
+            BallColor = new SolidBrush(color);
+        }
+        #endregion
+
         #region Protected methods
         protected override void DrawImage(Graphics input)
         {
-            SolidBrush p = new SolidBrush(Color.Blue);
-            input.FillEllipse(p, 0, 0, Width, Height);
+            input.FillEllipse(BallColor, 0, 0, Width, Height);
         }
         #endregion
     }
