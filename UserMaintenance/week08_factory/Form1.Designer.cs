@@ -38,15 +38,18 @@ namespace week08_factory
             this._buttonBall = new System.Windows.Forms.Button();
             this._labelComingNext = new System.Windows.Forms.Label();
             this._buttonColorPick = new System.Windows.Forms.Button();
+            this._buttonPresent = new System.Windows.Forms.Button();
+            this.buttonBox = new System.Windows.Forms.Button();
+            this.buttonRibbon = new System.Windows.Forms.Button();
             this._panelMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.mainPanel.Location = new System.Drawing.Point(0, 138);
+            this.mainPanel.Location = new System.Drawing.Point(0, 170);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(800, 312);
+            this.mainPanel.Size = new System.Drawing.Size(800, 280);
             this.mainPanel.TabIndex = 0;
             // 
             // createTimer
@@ -64,13 +67,16 @@ namespace week08_factory
             // _panelMenu
             // 
             this._panelMenu.Controls.Add(this._labelComingNext);
+            this._panelMenu.Controls.Add(this.buttonRibbon);
+            this._panelMenu.Controls.Add(this.buttonBox);
             this._panelMenu.Controls.Add(this._buttonColorPick);
+            this._panelMenu.Controls.Add(this._buttonPresent);
             this._panelMenu.Controls.Add(this._buttonBall);
             this._panelMenu.Controls.Add(this._buttonCar);
             this._panelMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this._panelMenu.Location = new System.Drawing.Point(0, 0);
             this._panelMenu.Name = "_panelMenu";
-            this._panelMenu.Size = new System.Drawing.Size(800, 100);
+            this._panelMenu.Size = new System.Drawing.Size(800, 164);
             this._panelMenu.TabIndex = 1;
             // 
             // _buttonCar
@@ -97,7 +103,7 @@ namespace week08_factory
             // 
             this._labelComingNext.AutoSize = true;
             this._labelComingNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._labelComingNext.Location = new System.Drawing.Point(166, 4);
+            this._labelComingNext.Location = new System.Drawing.Point(298, 4);
             this._labelComingNext.Name = "_labelComingNext";
             this._labelComingNext.Size = new System.Drawing.Size(110, 20);
             this._labelComingNext.TabIndex = 1;
@@ -105,13 +111,43 @@ namespace week08_factory
             // 
             // _buttonColorPick
             // 
-            this._buttonColorPick.BackColor = System.Drawing.Color.Red;
-            this._buttonColorPick.Location = new System.Drawing.Point(282, 3);
+            this._buttonColorPick.BackColor = System.Drawing.Color.ForestGreen;
+            this._buttonColorPick.Location = new System.Drawing.Point(85, 103);
             this._buttonColorPick.Name = "_buttonColorPick";
-            this._buttonColorPick.Size = new System.Drawing.Size(75, 93);
+            this._buttonColorPick.Size = new System.Drawing.Size(75, 28);
             this._buttonColorPick.TabIndex = 0;
             this._buttonColorPick.UseVisualStyleBackColor = false;
             this._buttonColorPick.Click += new System.EventHandler(this._buttonColorPick_Click);
+            // 
+            // _buttonPresent
+            // 
+            this._buttonPresent.Location = new System.Drawing.Point(166, 4);
+            this._buttonPresent.Name = "_buttonPresent";
+            this._buttonPresent.Size = new System.Drawing.Size(75, 93);
+            this._buttonPresent.TabIndex = 0;
+            this._buttonPresent.Text = "PRESENT";
+            this._buttonPresent.UseVisualStyleBackColor = true;
+            this._buttonPresent.Click += new System.EventHandler(this._buttonPresent_Click);
+            // 
+            // buttonBox
+            // 
+            this.buttonBox.BackColor = System.Drawing.Color.Red;
+            this.buttonBox.Location = new System.Drawing.Point(166, 103);
+            this.buttonBox.Name = "buttonBox";
+            this.buttonBox.Size = new System.Drawing.Size(75, 28);
+            this.buttonBox.TabIndex = 0;
+            this.buttonBox.UseVisualStyleBackColor = false;
+            this.buttonBox.Click += new System.EventHandler(this._buttonColorPick_Click);
+            // 
+            // buttonRibbon
+            // 
+            this.buttonRibbon.BackColor = System.Drawing.Color.Yellow;
+            this.buttonRibbon.Location = new System.Drawing.Point(166, 133);
+            this.buttonRibbon.Name = "buttonRibbon";
+            this.buttonRibbon.Size = new System.Drawing.Size(75, 28);
+            this.buttonRibbon.TabIndex = 0;
+            this.buttonRibbon.UseVisualStyleBackColor = false;
+            this.buttonRibbon.Click += new System.EventHandler(this._buttonColorPick_Click);
             // 
             // Form1
             // 
@@ -138,6 +174,9 @@ namespace week08_factory
         private System.Windows.Forms.Button _buttonBall;
         private System.Windows.Forms.Button _buttonCar;
         private System.Windows.Forms.Button _buttonColorPick;
+        private System.Windows.Forms.Button _buttonPresent;
+        private System.Windows.Forms.Button buttonRibbon;
+        private System.Windows.Forms.Button buttonBox;
     }
 }
 

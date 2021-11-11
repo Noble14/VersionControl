@@ -90,6 +90,15 @@ namespace week08_factory
             if (cd.ShowDialog() == DialogResult.OK)
                 button.BackColor = cd.Color;
         }
+
+        private void _buttonPresent_Click(object sender, EventArgs e)
+        {
+            Factory = new PresentFactory()
+            {
+                BoxColor = buttonBox.BackColor,
+                RibbonColor = buttonRibbon.BackColor
+            };
+        }
         #endregion
 
         #region Private methods
@@ -105,5 +114,7 @@ namespace week08_factory
             _panelMenu.Controls.Add(_nextToy);
         }
         #endregion
+
+
     }
 }
