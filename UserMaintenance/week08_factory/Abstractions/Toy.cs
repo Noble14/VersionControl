@@ -14,6 +14,7 @@ namespace week08_factory.Abstractions
             this.Height = 50;
             this.Paint += Toy_Paint;
             this.Click += Toy_Click;
+            this.Top = 100;
         }
         #endregion
 

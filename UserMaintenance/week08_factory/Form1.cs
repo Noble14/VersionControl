@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using week08_factory.Entities;
 using week08_factory.Abstractions;
@@ -117,8 +113,8 @@ namespace week08_factory
                 _panelMenu.Controls.Remove(_nextToy);
             }
             _nextToy = _factory.CreateNew();
-            _nextToy.Top = _labelComingNext.Height + _labelComingNext.Top;
-            _nextToy.Left = _labelComingNext.Left;
+            _nextToy.Top = _labelComingNext.Height + _labelComingNext.Top + 20;
+            _nextToy.Left = _labelComingNext.Left + (_labelComingNext.Width - _nextToy.Width) / 2;
             _panelMenu.Controls.Add(_nextToy);
         }
         #endregion

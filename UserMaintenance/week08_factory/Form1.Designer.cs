@@ -46,6 +46,7 @@ namespace week08_factory
             // 
             // mainPanel
             // 
+            this.mainPanel.BackColor = System.Drawing.SystemColors.Info;
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.mainPanel.Location = new System.Drawing.Point(0, 170);
             this.mainPanel.Name = "mainPanel";
@@ -66,6 +67,7 @@ namespace week08_factory
             // 
             // _panelMenu
             // 
+            this._panelMenu.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this._panelMenu.Controls.Add(this._labelComingNext);
             this._panelMenu.Controls.Add(this.buttonRibbon);
             this._panelMenu.Controls.Add(this.buttonBox);
@@ -103,7 +105,7 @@ namespace week08_factory
             // 
             this._labelComingNext.AutoSize = true;
             this._labelComingNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._labelComingNext.Location = new System.Drawing.Point(298, 4);
+            this._labelComingNext.Location = new System.Drawing.Point(247, 4);
             this._labelComingNext.Name = "_labelComingNext";
             this._labelComingNext.Size = new System.Drawing.Size(110, 20);
             this._labelComingNext.TabIndex = 1;
@@ -157,7 +159,7 @@ namespace week08_factory
             this.Controls.Add(this._panelMenu);
             this.Controls.Add(this.mainPanel);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Factory";
             this._panelMenu.ResumeLayout(false);
             this._panelMenu.PerformLayout();
             this.ResumeLayout(false);

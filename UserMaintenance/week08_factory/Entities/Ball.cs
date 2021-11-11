@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using week08_factory.Abstractions;
+
 
 namespace week08_factory.Entities
 {
     public class Ball : Toy
     {
         public SolidBrush BallColor { get; private set; }
-        Random vel = new Random();
+
+        #region Fields
+        private Random vel = new Random();
         private int lowerBound;
         private int upperBound;
-        bool upOrdDown;
+        private bool upOrdDown;
+        #endregion
 
         #region Constructor
         public Ball(Color color)
@@ -19,7 +22,7 @@ namespace week08_factory.Entities
             BallColor = new SolidBrush(color);
             this.Click += Ball_Click;
             lowerBound = Top;
-            upperBound = Top + 30;
+            upperBound = Top -40;
             upOrdDown = false;
         }
         #endregion
@@ -44,18 +47,21 @@ namespace week08_factory.Entities
             return "Labda";
         }
 
+        /*public override void MoveToy()
+        {
+            Left++;
+            if (lowerBound == Top || upperBound == Top) 
+                upOrdDown = !upOrdDown;
+            if (upOrdDown)
+                Top--;
+            else
+                Top++;
+        }*/
         public override void MoveToy()
         {
             Left++;
-            if (lowerBound == Top || upperBound == Top) upOrdDown = !upOrdDown;
-            if (upOrdDown)
-            {
-                Top++;
-            }
-            else
-            {
-                Top--;
-            }
+            double b = Left;
+            Top = lowerBound - 40 + (int)(Math.Sin(b/25)*40);
         }
         #endregion
     }
