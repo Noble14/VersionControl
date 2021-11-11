@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace week08_factory.Entities
 {
-    class Ball : Label
+    public class Ball : Label
     {
         #region Constructor
         public Ball()
