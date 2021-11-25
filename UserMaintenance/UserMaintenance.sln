@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "week06_SOAP", "week06_SOAP\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "week08_factory", "week08_factory\week08_factory.csproj", "{61EC3E2B-5B08-4E04-B4B6-FCAEE2A1124D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestExample", "..\..\..\..\Downloads\UnitTestExample\UnitTestExample\UnitTestExample.csproj", "{F1FBDBB6-FEBA-421B-A647-484ED380E500}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestExample.Test", "UnitTestExample.Test\UnitTestExample.Test.csproj", "{C7B428A4-9074-4FE9-BD61-76DA37FEF46E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{61EC3E2B-5B08-4E04-B4B6-FCAEE2A1124D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61EC3E2B-5B08-4E04-B4B6-FCAEE2A1124D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61EC3E2B-5B08-4E04-B4B6-FCAEE2A1124D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1FBDBB6-FEBA-421B-A647-484ED380E500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1FBDBB6-FEBA-421B-A647-484ED380E500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1FBDBB6-FEBA-421B-A647-484ED380E500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1FBDBB6-FEBA-421B-A647-484ED380E500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7B428A4-9074-4FE9-BD61-76DA37FEF46E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7B428A4-9074-4FE9-BD61-76DA37FEF46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7B428A4-9074-4FE9-BD61-76DA37FEF46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7B428A4-9074-4FE9-BD61-76DA37FEF46E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
