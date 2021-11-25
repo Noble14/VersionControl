@@ -63,7 +63,7 @@ namespace UnitTestExample.Test
             Mock<IAccountManager> moq = new Mock<IAccountManager>(MockBehavior.Strict);
             moq.
                 Setup(m => m.CreateAccount(It.IsAny<Account>())).
-                Returns<Account>(a=>a);
+                Returns<Account>(a => a);
             ac.AccountManager = moq.Object;
 
             //Act
@@ -88,7 +88,11 @@ namespace UnitTestExample.Test
         {
             //Arrange
             AccountController ac = new AccountController();
-
+            Mock<IAccountManager> moq = new Mock<IAccountManager>(MockBehavior.Strict);
+            moq
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Throws<ApplicationException>();
+            ac.AccountManager = moq.Object;
             //Act
             try
             {
