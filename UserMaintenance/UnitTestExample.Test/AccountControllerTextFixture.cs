@@ -1,12 +1,14 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using System;
 using System.Activities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitTestExample.Abstractions;
 using UnitTestExample.Controllers;
-
+using UnitTestExample.Entities;
 
 namespace UnitTestExample.Test
 {
@@ -58,6 +60,11 @@ namespace UnitTestExample.Test
         {
             //Arrange
             AccountController ac = new AccountController();
+            Mock<IAccountManager> moq = new Mock<IAccountManager>(MockBehavior.Strict);
+            moq.
+                Setup(m => m.CreateAccount(It.IsAny<Account>())).
+                Returns<Account>(a=>a);
+            ac.AccountManager = moq.Object;
 
             //Act
             var account = ac.Register(email, password);
@@ -66,6 +73,7 @@ namespace UnitTestExample.Test
             Assert.AreEqual(email, account.Email);
             Assert.AreEqual(password, account.Password);
             Assert.AreNotEqual(Guid.Empty, account.ID);
+            moq.Verify(m => m.CreateAccount(account), Times.Once);
         }
 
         [
