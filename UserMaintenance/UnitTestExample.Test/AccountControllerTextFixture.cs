@@ -11,8 +11,14 @@ namespace UnitTestExample.Test
 {
     public class AccountControllerTextFixture
     {
-        [Test]
-        private void TestValidateEmail(string email, bool expectedResult)
+        [
+            Test,
+            TestCase("jelszo123",false),
+            TestCase("valakik@gmail",false),
+            TestCase("Valakigmail.com", false),
+            TestCase("valaki@gmail.com",true)
+            ]
+        public void TestValidateEmail(string email, bool expectedResult)
         {
             //Arrange
             AccountController ac = new AccountController();
