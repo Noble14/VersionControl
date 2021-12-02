@@ -18,6 +18,8 @@ namespace week_09_MachineLearning
         List<Person> Population = new List<Person>();
         List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
         List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
+        List<int> MalesInThePopulation = new List<int>();
+        List<int> FemalesInThePopulation = new List<int>();
 
         Random vel = new Random(1234);
         #endregion
@@ -27,11 +29,21 @@ namespace week_09_MachineLearning
         {
             InitializeComponent();
 
-            Population = GetPopulation(@"C:\Temp\nép.csv");
+            //Population = GetPopulation(@"C:\Temp\nép.csv");
             BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
 
-            for (int year = 2005; year <= 2024; year++)
+            //Simulation();
+        }
+
+
+        #endregion
+
+        #region Simulation methods
+
+        private void Simulation()
+        {
+            for (int year = 2005; year <= numericUpDown1.Value; year++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
@@ -45,13 +57,12 @@ namespace week_09_MachineLearning
                                     where x.Gender == Gender.Female && x.IsAlive
                                     select x).Count();
 
-                Console.WriteLine(
-                string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
+                //Console.WriteLine(
+                //string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
+                MalesInThePopulation.Add(nbrOfMales);
+                FemalesInThePopulation.Add(nbrOfFemales);
             }
         }
-        #endregion
-
-        #region Simulation methods
 
         private void SimStep(int year, Person person)
         {
@@ -59,8 +70,8 @@ namespace week_09_MachineLearning
                 return;
             var Age = year - person.BirthYear;
             var deathProbability = (from x in DeathProbabilities
-                                   where x.Age == Age && x.Gender == person.Gender
-                                   select x.Probability).FirstOrDefault();
+                                    where x.Age == Age && x.Gender == person.Gender
+                                    select x.Probability).FirstOrDefault();
             if (vel.NextDouble() <= deathProbability)
                 person.IsAlive = false;
             if (!person.IsAlive && person.Gender == Gender.Male)
@@ -68,11 +79,11 @@ namespace week_09_MachineLearning
             var birthProbability = (from x in BirthProbabilities
                                     where x.Age == Age && x.NumberOfChildren == person.NumberOfChildren
                                     select x.Probability).FirstOrDefault();
-            if(vel.NextDouble() <= birthProbability)
+            if (vel.NextDouble() <= birthProbability)
                 Population.Add(new Person()
                 {
                     BirthYear = year,
-                    Gender = (Gender)vel.Next(1,3),
+                    Gender = (Gender)vel.Next(1, 3),
                     NumberOfChildren = 0
                 });
         }
@@ -142,5 +153,41 @@ namespace week_09_MachineLearning
 
 
         #endregion
+
+        #region View Event Handlers
+        private void BrowseButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = @"C:\Temp\";
+            ofd.Filter = "csv files (*.csv) |*.csv";
+            if (ofd.ShowDialog() == DialogResult.OK)
+                textBox1.Text = ofd.FileName;
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            Population.Clear();
+            MalesInThePopulation.Clear();
+            FemalesInThePopulation.Clear();
+
+            Population = GetPopulation(textBox1.Text);
+            Simulation();
+            DisplayResult();
+        }
+        #endregion
+
+        #region View Methods
+        private void DisplayResult()
+        {
+            richTextBox1.Clear();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < MalesInThePopulation.Count; i++)
+            {
+                sb.Append($"Szimulációs év: {2005 + i}\n\tFiúk: {MalesInThePopulation[i]}\n\tLányok: {FemalesInThePopulation[i]}\n\n");
+            }
+            richTextBox1.Text = sb.ToString();
+        }
+        #endregion
+
     }
 }
