@@ -35,7 +35,7 @@ namespace week_09_MachineLearning
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
-
+                    SimStep(year, Population[i]);
                 }
 
                 var nbrOfMales = (from x in Population
@@ -48,6 +48,33 @@ namespace week_09_MachineLearning
                 Console.WriteLine(
                 string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
             }
+        }
+        #endregion
+
+        #region Simulation methods
+
+        private void SimStep(int year, Person person)
+        {
+            if (!person.IsAlive)
+                return;
+            var Age = year - person.BirthYear;
+            var deathProbability = (from x in DeathProbabilities
+                                   where x.Age == Age && x.Gender == person.Gender
+                                   select x.Probability).FirstOrDefault();
+            if (vel.NextDouble() <= deathProbability)
+                person.IsAlive = false;
+            if (!person.IsAlive && person.Gender == Gender.Male)
+                return;
+            var birthProbability = (from x in BirthProbabilities
+                                    where x.Age == Age && x.NumberOfChildren == person.NumberOfChildren
+                                    select x.Probability).FirstOrDefault();
+            if(vel.NextDouble() <= birthProbability)
+                Population.Add(new Person()
+                {
+                    BirthYear = year,
+                    Gender = (Gender)vel.Next(1,3),
+                    NumberOfChildren = 0
+                });
         }
         #endregion
 
