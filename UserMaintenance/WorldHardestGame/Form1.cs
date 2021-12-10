@@ -26,6 +26,8 @@ namespace WorldHardestGame
             InitializeComponent();
             ga = gc.ActivateDisplay();
             Controls.Add(ga);
+            gc.GameOver += Gc_GameOver;
+            label1.BringToFront();
 
             for (int i = 0; i < populationSize; i++)
             {
@@ -34,6 +36,17 @@ namespace WorldHardestGame
             gc.Start();
             //gc.AddPlayer();
             //gc.Start(true);
+        }
+
+        private void Gc_GameOver(object sender)
+        {
+            generation++;
+            label1.Text = $"{generation}. generáció";
+
+            var playerList = from p in gc.GetCurrentPlayers()
+                             orderby p.GetFitness() descending
+                             select p;
+            var topPerformers = playerList.Take(populationSize / 2).ToList();
         }
     }
 }
