@@ -15,6 +15,7 @@ namespace WorldHardestGame
     {
         GameController gc = new GameController();
         GameArea ga;
+        Brain winnerBrain;
 
         int populationSize = 100;
         int nbrOfSteps = 10;
@@ -63,6 +64,17 @@ namespace WorldHardestGame
                     gc.AddPlayer(b.Mutate());
             }
             gc.Start();
+
+            var winners = from p in topPerformers
+                          where p.IsWinner
+                          select p;
+            if (winners.Count() > 0)
+            {
+                winnerBrain = winners.FirstOrDefault().Brain.Clone();
+                gc.GameOver -= Gc_GameOver;
+                return;
+
+            }
         }
     }
 }
